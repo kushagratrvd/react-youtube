@@ -1,15 +1,15 @@
 import { useState } from 'react'
-
+import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
+import { Outlet } from 'react-router-dom'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      
-      <p className="bg-green-500">
-        Click on the Vite and React logos to learn more
-      </p>
+    <Header />
+    <Outlet />
+    <Footer />
     </>
   )
 }
