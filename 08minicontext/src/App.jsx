@@ -1,16 +1,16 @@
 import { useState } from 'react'
-
 import UserContextProvider from './Context/UserContextProvider'
 import Login from './Components/Login'
 import Profile from './Components/Profile'
 
-function App() {
 
-  return (
+
+function App() {
+  return(
     <UserContextProvider>
-      Hello People Kushagra Here
-      <Login/>
-      <Profile/>
+      <h1>React with chai </h1>
+      <Login />
+      <Profile />
     </UserContextProvider>
   )
 }
