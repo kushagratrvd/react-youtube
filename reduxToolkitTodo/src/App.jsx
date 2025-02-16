@@ -1,18 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react'
 import './App.css'
 import AddTodo from './components/AddTodo'
 import Todos from './components/Todos'
 
 function App() {
-  
   return (
-    <>
-      <h1>Learn about redux toolkit</h1>
+    <div className="min-h-screen">
+      <h1 className="text-center text-3xl font-bold mt-8">Learn about Redux Toolkit</h1>
       <AddTodo />
       <Todos />
-    </>
+    </div>
   )
 }
 
