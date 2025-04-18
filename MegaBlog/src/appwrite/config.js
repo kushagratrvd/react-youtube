@@ -72,7 +72,7 @@ export class Service{
                 conf.appwriteCollectionId,
                 slug,
             )
-            return true;
+            //return true;
         } catch (error) {
             console.log("Service :: getPost :: error", error);
             return false;
@@ -86,7 +86,7 @@ export class Service{
                 conf.appwriteCollectionId,
                 queries,
             )
-            return true;
+            //return true;
         } catch (error) {
             console.log("Service :: getPosts :: error", error);
             return false;
@@ -100,7 +100,7 @@ export class Service{
                 ID.unique(),
                 file
             )
-            return true;
+            //return true;
         } catch (error) {
             console.log("Service :: uploadFile :: error", error);
             return false;

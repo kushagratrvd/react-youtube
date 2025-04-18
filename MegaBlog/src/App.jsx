@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch} from 'react-redux'
-import authService from './appwrite/Auth'
+import authService from './appwrite/auth'
 import {login, logout} from './store/authSlice'
 import {Footer, Header} from './components'
 import { Outlet } from 'react-router-dom'
@@ -12,15 +12,24 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    console.log("Starting auth check...")
     authService.getCurrentUser()
     .then((userData) => {
-      if(userData){
-        dispatch(login({userData}))
-      } else{
-        dispatch(logout())
-      }
+        console.log("User data:", userData)
+        if(userData){
+            dispatch(login({userData}))
+        } else{
+            dispatch(logout())
+        }
     })
-    .finally(() => setLoading(false))
+    .catch((error) => {
+        console.error("Auth error:", error)
+        dispatch(logout())
+    })
+    .finally(() => {
+        console.log("Auth check complete")
+        setLoading(false)
+    })
   }, [])
 
   return !loading ? (
