@@ -67,7 +67,7 @@ export class Service{
 
     async getPost(slug){
         try {
-            await this.databases.getDocument(
+            return await this.databases.getDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 slug,
@@ -120,11 +120,31 @@ export class Service{
         }
     }
 
-    getFilePreview(fileId){
-        return this.bucket.getFilePreview(
-            conf.appwriteBucketId,
-            fileId
-        )
+    getFilePreview(fileId) {
+        try {
+            if (!fileId) {
+                console.log("No fileId provided");
+                return null;
+            }
+            
+            const url = this.bucket.getFilePreview(
+                conf.appwriteBucketId,
+                fileId,
+                2000, // width
+                2000, // height
+                'center', // gravity
+                100, // quality
+                0, // border
+                '', // output (empty for original format)
+                '', // rotation (empty for no rotation)
+            );
+            
+            console.log("Generated preview URL for fileId:", fileId);
+            return url;
+        } catch (error) {
+            console.error("getFilePreview error:", error);
+            return null;
+        }
     }
 }
 

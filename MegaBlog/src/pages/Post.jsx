@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 
 export default function Post() {
     const [post, setPost] = useState(null);
+    const [imageError, setImageError] = useState(false);
+    const [imageLoading, setImageLoading] = useState(true);
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -36,11 +38,31 @@ export default function Post() {
         <div className="py-8">
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
-                    <img
-                        src={appwriteService.getFilePreview(post.featuredImage)}
-                        alt={post.title}
-                        className="rounded-xl"
-                    />
+                    {imageError ? (
+                        <div className="h-48 rounded-xl bg-gray-200 flex items-center justify-center">
+                            <span className="text-gray-500">Image not available</span>
+                        </div>
+                    ) : (
+                        <div className="relative w-full">
+                            {imageLoading && (
+                                <div className="absolute inset-0 bg-gray-100 animate-pulse rounded-xl" />
+                            )}
+                            <img
+                                src={appwriteService.getFilePreview(post.featuredImage)}
+                                alt={post.title}
+                                className={`rounded-xl w-full ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+                                onError={(e) => {
+                                    console.error("Error loading image:", e);
+                                    setImageError(true);
+                                    setImageLoading(false);
+                                }}
+                                onLoad={() => {
+                                    console.log("Image loaded successfully");
+                                    setImageLoading(false);
+                                }}
+                            />
+                        </div>
+                    )}
 
                     {isAuthor && (
                         <div className="absolute right-6 top-6">
@@ -60,7 +82,7 @@ export default function Post() {
                 </div>
                 <div className="browser-css">
                     {parse(post.content)}
-                    </div>
+                </div>
             </Container>
         </div>
     ) : null;

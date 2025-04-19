@@ -13,6 +13,8 @@ function App() {
 
   useEffect(() => {
     console.log("Starting auth check...")
+    console.log("Appwrite URL:", import.meta.env.VITE_APPWRITE_URL);
+    console.log("Bucket ID:", import.meta.env.VITE_APPWRITE_BUCKET_ID);
     authService.getCurrentUser()
     .then((userData) => {
         console.log("User data:", userData)
